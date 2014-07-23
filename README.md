@@ -30,9 +30,9 @@ Build the kernel
     $ export CROSS_COMPILE=arm_none_linux_gnueabi- (or other ARM cross compiler)
     $ export ARCH=arm
     $ LOADADDR=40008000 make uImage
-    $ ./duImage-m2.sh
+    $ make dtbs
 
-Copy `arch/arm/boot/duImage` to partition 1 of the SD card
+Copy `arch/arm/boot/uImage` and `arch/arm/boot/dts/r8a7791-koelsch.dtb` to partition 1 of the SD card
 
 Tizen IVI platform build
 ------------------------
@@ -57,7 +57,8 @@ program to connect at 115200 baud.
 
 From U-Boot load and boot the kernel image from the SD card
 
-    => ext4load mmc 0 40007fc0 duImage
-    => bootm
+    => ext4load mmc 0 40007fc0 uImage
+    => ext4load mmc 0 40f00000 r8a7791-koelsch.dtb`
+    => bootm 40007fc0 - 40f00000
 
 Boot and enjoy
